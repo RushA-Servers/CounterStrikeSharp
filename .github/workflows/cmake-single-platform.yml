@@ -17,7 +17,10 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     outputs:
-      buildnumber: '2137'
+      buildnumber:  "2137"
+    steps:
+      - name: Set build number
+        run: echo "Build number set to 2137"
 
   build_windows:
     needs: setup
