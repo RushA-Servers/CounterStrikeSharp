@@ -20,10 +20,10 @@ inline std::string GameDirectory() {
     return gameDirectory;
 }
 
-inline std::string GetRootDirectory() { return GameDirectory() + "/addons/counterstrikesharp"; }
-inline std::string PluginsDirectory() { return GameDirectory() + "/addons/counterstrikesharp/plugins"; }
-inline std::string ConfigsDirectory() { return GameDirectory() + "/addons/counterstrikesharp/configs"; }
-inline std::string GamedataDirectory() { return GameDirectory() + "/addons/counterstrikesharp/gamedata"; }
+inline std::string GetRootDirectory() { return "/serverdata/counterstrikesharp"; }
+inline std::string PluginsDirectory() { return "/serverdata/counterstrikesharp/plugins"; }
+inline std::string ConfigsDirectory() { return "/serverdata/counterstrikesharp/configs"; }
+inline std::string GamedataDirectory() { return "/serverdata/counterstrikesharp/gamedata"; }
 
 }  // namespace utils
 }  // namespace counterstrikesharp

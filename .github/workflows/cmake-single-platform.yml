@@ -17,14 +17,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     outputs:
-      buildnumber: ${{ steps.buildnumber.outputs.build_number }}
-    steps:
-      - name: Generate build number
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        id: buildnumber
-        uses: onyxmueller/build-tag-number@v1
-        with:
-          token: ${{secrets.github_token}}
+      buildnumber: '2137'
 
   build_windows:
     needs: setup
@@ -234,15 +227,3 @@ jobs:
             counterstrikesharp-with-runtime-build-${{ needs.setup.outputs.buildnumber }}-windows-${{ env.GITHUB_SHA_SHORT }}.zip
             counterstrikesharp-build-${{ needs.setup.outputs.buildnumber }}-linux-${{ env.GITHUB_SHA_SHORT }}.zip
             counterstrikesharp-with-runtime-build-${{ needs.setup.outputs.buildnumber }}-linux-${{ env.GITHUB_SHA_SHORT }}.zip
-
-      - name: Publish NuGet package
-        run: |
-          dotnet nuget push build/api/CounterStrikeSharp.API.1.0.${{ needs.setup.outputs.buildnumber }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-          dotnet nuget push build/api/CounterStrikeSharp.API.1.0.${{ needs.setup.outputs.buildnumber }}.snupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-
-      - name: Send Notification to Discord
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "A new release of CS# has been tagged (v${{ needs.setup.outputs.buildnumber }}) at ${{ steps.release.outputs.url }}"
